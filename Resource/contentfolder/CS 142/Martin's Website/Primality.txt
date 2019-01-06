@@ -1,0 +1,30 @@
+
+public class Primality {
+
+	public static void main(String[] args) {
+		//int n = 23412421;
+		// Create a loop where we declare/initialize, and increment n as long as n is less than 100
+		int primeCount = 0;
+		long start = System.currentTimeMillis();
+		for (int n = 2; n < 10000000; n++) { // MODIFY THIS FOR LOOP!
+			int d = 2;
+			double sqrt = Math.sqrt(n);
+			boolean divisible = false;
+			for (; d <= sqrt; d = d + 1) {
+				if (n % d == 0) {
+					//System.out.println(n+" is divisible by "+d);
+					divisible = true;
+					break;
+				}
+			}
+			if (!divisible) {
+				// If we didn't find a factor, the number must be prime
+				//System.out.println(n);
+				primeCount++;
+			}
+		}
+		System.out.println(primeCount);
+		System.out.println((System.currentTimeMillis() - start)/1000.0);
+	}
+
+}

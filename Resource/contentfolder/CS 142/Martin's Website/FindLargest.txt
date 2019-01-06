@@ -1,0 +1,24 @@
+
+public class FindLargest {
+	public static int[] a = {1, 8, -3, 42, 5, 73, 62, 4};
+	public static void main(String[] args) {
+
+		// Set up a variable that remembers the biggest thing so far.
+		// What should you initialize it to? Good question!
+		int biggestSoFar = a[0];
+		// Set up the for loop with a variable that visits 
+		// every element in the array!
+		for (int i = 0; i < a.length; i++) {
+			// Look at the current element
+			// Is it bigger than the biggest one we've seen so far?
+			if (a[i] > biggestSoFar) {
+				// If so, that must be the new biggest thing so far.
+				biggestSoFar = a[i];
+			}
+		}
+		// Print the biggest thing so far
+		// It must be the biggest thing in the whole array!
+		System.out.println(biggestSoFar);
+	}
+
+}

@@ -1,0 +1,51 @@
+CS 142 Assignment 2
+Managers and Engineers River Crossing Puzzle
+DUE on Tuesday, October 17 at 11:59 PM
+
+For this assignment, you will program the logic for a river crossing puzzle. 
+
+Three Puget Sound area tech companies (Company A, Company B, Company C) have decided to hold an event to improve relations.
+Each company sends one engineer and one manager to go on a hike. The three engineers and three managers hike for an hour and eventually reach a river which they need to cross.
+There is a small boat where only at most two people can fit at a time. Any person can pilot the boat.
+There is one caveat:
+If a manager is in the presence of an engineer of a different company when that engineer’s manager is not present,
+the manager will feel obligated to recruit the engineer to join their company. However, this would ruin the event’s synergy.
+Let’s model the rules of this problem so that a player could try to solve the puzzle without violating the laws of physics or ruining the event.
+
+You will model the problem in the following way:
+
+Create a class called ManagersCrossing. The boat and each of the six people will have their own static position
+variable which is true if the position is on the left (starting) side of the river and false if it is on the right (desired) side:
+
+// current position of boat = true means boat on the starting side of the river
+public static boolean currentBoat = true; 
+// current position of manager for company A, B, C
+public static boolean currentManagerA = true, currentManagerB = true, currentManagerC = true;
+// current position of engineer for company A, B, C
+public static boolean currentEngineerA = true, currentEngineerB = true, currentEngineerC = true; 
+
+In addition, each of the six people will have their own position variable which is true if the player wants the next position
+of that object to be on the left side and false if they want it to be on the right side. There is no next position variable
+needed for the boat because it will always switch sides every move.
+
+// next position of manager for company A, B, C
+public static boolean nextManagerA = true, nextManagerB = true, nextManagerC = true;
+// next position of engineer for company A, B, C
+public static boolean nextEngineerA = true, nextEngineerB = true, nextEngineerC = true;
+
+These variables are public static variables declared before the main method.
+This will allow a tester program to modify and observe the variables before and after the main method is called to check your program’s correctness.
+
+Inside the main method, you’ll implement logic to check whether the next positions are compatible with the rules of the game compared with the current positions.
+If the next positions are compatible with the rules, assign the current position variables to be equal to the corresponding next position variables
+(next becomes current if the desired move is allowed). An overview of the logic follows. Note that at most one error message should be printed.
+
+First, make sure that each person you’re trying to move is on the same side as the boat. If not, print this error message: You may not move a person who is not with the boat!
+
+Second, make sure you’re moving at most two people. If not, print the following error message:  You may only move up to two people at a time!
+
+Third, make sure that no manager would recruit anyone. There will be 3 separate checks, one for each manager. For each check, if a recruitment happens,
+print the error message, replacing X with A, B, or C as appropriate:  Manager X is trying to recruit someone!
+
+Finally, if none of the errors above occurred, you should assign (move) the current position variables to the next position values.
+A checker program will check the above and provide helpful messages if there are problems! 

@@ -1,0 +1,32 @@
+CS 142 Assignment 3
+Working with Loops and Arrays
+DUE on Wednesday, October 25 at 11:59 PM
+
+Create a Java class LoopsAndArrays which contains a main method. Your program will work with an array of int values named a which is
+stored as a public static variable named a. An example value is shown below, but your code must work with any array of ints that is
+in a. The test program will assign different arrays to a to test your program’s correctness.
+
+public static int[] a = {13, 2, 20, -32, 3};
+
+You may write and use your own static methods within LoopsAndArrays if you would like, but you can complete the assignment entirely within
+the main method without writing other methods. However, your code should not call any methods built into Java or from any third party to
+assist your work. The test program will test for this. Instead, you should perform all calculations yourself using basic math operations.
+You can borrow code we wrote in class. The only methods you may call (aside from your own) are
+System.out.print and System.out.println.
+
+Your program will produce four lines of output in the order shown below. The example lines below are what would be printed
+for the example array above, but your code should calculate the values in a way that would work for any array of ints stored in a.
+
+First, what is the smallest positive value in the array (greater than 0)? Print a line that looks like this: Smallest positive value: 2
+
+Second, how many prime numbers are contained within the array? Only consider numbers which are 2 or larger to be prime. Print a line that looks like this: Prime count: 3
+
+Third, does the array contain a number which is a square of an integer plus one? In the above example, 12 + 1 = 2.
+Another example of such a number (not in the example array): 92 + 1 = 82.
+Answer the question with “yes” or “no” when you print a line that looks like this: Contains a square plus one: yes
+
+Fourth, does the array contain two elements x and y whose product (x times y) is equal to the sum of the entire array?
+The two elements may have the same value but they should have different indexes. Print out a line that looks like this, but
+put “no” after the colon instead of “x and y” if there is no such a and b according to the above definition.
+
+Two elements with product equal to array sum: 2 and 3 

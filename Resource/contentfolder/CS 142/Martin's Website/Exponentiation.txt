@@ -1,0 +1,16 @@
+
+public class Exponentiation {
+
+	public static void main(String[] args) {
+		int a = 2;
+		int b = 5;
+		int result = 1;
+		// Calculate a to the b power
+		while (b > 0) {
+			result = a * result;
+			b = b - 1;
+		}
+		System.out.println(result);
+	}
+
+}

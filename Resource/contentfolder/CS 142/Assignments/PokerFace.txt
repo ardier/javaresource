@@ -1,0 +1,141 @@
+// Your name here!
+// Fill in these methods according to the descriptions given and the assignment handout!
+
+public class PokerFace {
+	
+	/**
+	 * 8 points: Is the given card of the given suit?
+	 * 
+	 * @param card
+	 *            Card value (see assignment description)
+	 * @param suit
+	 *            Suit value (Spade=1, Club=2, Heart=3, Diamond=4)
+	 * @return true if card is of the given suit, false otherwise (including if suit
+	 *         or card is not in the specified range)
+	 */
+	public static boolean isSuit(int card, int suit) {
+		return false; // Instead of returning false, calculate according to the above description!
+	}
+
+	/**
+	 * 8 points: Is the given card of the given rank?
+	 * 
+	 * @param card
+	 *            Card value
+	 * @param rank
+	 *            Rank value (A=1, 2-10=2-10, J=11, Q=12, K=13)
+	 * @return true if card is of the given rank, false otherwise (including if rank
+	 *         or card is not in the specified range)
+	 */
+	public static boolean isRank(int card, int rank) {
+		return false; // Instead of returning false, calculate according to the above description!
+	}
+
+	/**
+	 * 10 points: Is the given hand a flush? All cards must be the same suit. This
+	 * method should work for a hand of any size but you may assume all card values
+	 * are valid and there are no duplicates. HINT: Use isSuit() on each card.
+	 * 
+	 * @param hand
+	 *            Array of card values representing the hand
+	 * @return True if all cards in the hand are the same suit, false otherwise
+	 */
+	public static boolean isFlush(int[] hand) {
+		return false; // Instead of returning false, calculate according to the above description!
+	}
+
+	/**
+	 * 14 points: Is the given hand a straight? All cards must be in ascending rank.
+	 * Ace may count as either a high or low card, but not both. (A-2-3-4-5 or
+	 * 10-J-Q-K-A are five card straights, but not K-A-2-3-4.) The cards will be
+	 * sorted by value, meaning that cards of a given rank will be grouped together,
+	 * but Aces will be grouped at the beginning. This method should work for a hand
+	 * of any size but you may assume all card values are valid and there are no
+	 * duplicates.
+	 * 
+	 * HINT: Use isRank() on each card in turn. Consider how the rank changes from
+	 * one card to the next.
+	 * 
+	 * @param hand
+	 *            Array of card values representing the hand
+	 * @return True if all cards in the hand are in ascending rank, false otherwise
+	 */
+	public static boolean isStraight(int[] hand) {
+		return false; // Instead of returning false, calculate according to the above description!
+	}
+
+	/**
+	 * 10 points: Count how many cards of a given rank appear in the hand.
+	 * 
+	 * @param hand
+	 *            Array of card values representing the hand
+	 * @param rank
+	 *            Rank value
+	 * @return
+	 */
+	public static int countCardsOfRank(int[] hand, int rank) {
+		return 0; // Instead of returning 0, calculate according to the above description!
+	}
+
+	/**
+	 * 10 points: Does the hand contain a run of cards of the same rank for the
+	 * given length? For example, the hand [A 2 2 2 10 K] contains a run of three
+	 * 2s. It also contains a run of two 2s. HINT: Use countCardsOfRank() and try
+	 * all possible ranks.
+	 * 
+	 * @param hand
+	 * @param length
+	 * @return
+	 */
+	public boolean containsRun(int[] hand, int length) {
+		return false; // Instead of returning false, calculate according to the above description!
+	}
+
+	/**
+	 * 20 points: Replace selected cards in your hand by drawing from the deck. For
+	 * each location in "hand," if the same location in "selected" is true, replace
+	 * the array location's value with a value (card) starting from the "top" index
+	 * in the "deck" array. You may assume that the selected array is the same
+	 * length as the hand array and there are enough cards in the deck to replace
+	 * your hand. As an example, the hand [1, 2, 3] with selected [true, false,
+	 * true], deck [5, 6, 7, 8] and top 1 would cause the hand to become [6, 2, 7]
+	 * and 2 would be returned because two cards were replaced.
+	 * 
+	 * @param hand
+	 *            Array of card values representing the hand
+	 * @param replace
+	 *            Boolean array indicating which cards to replace
+	 * @param deck
+	 *            Deck of cards used to replace hand cards
+	 * @param topOfDeck
+	 *            Location of the top of the deck within the array (allows multiple
+	 *            people to use the deck)
+	 * @return Number of cards replaced
+	 */
+	public static int drawCards(int[] hand, boolean[] selected, int[] deck, int top) {
+		return 0; // Instead of returning 0, calculate according to the above description!
+	}
+
+	/**
+	 * 20 points: Return true if myHand is a winner over otherHand according to the
+	 * rules of poker. For full credit, you only need to correctly pick a winner if
+	 * each hand is in a separate one of these categories: Straight flush > four of
+	 * a kind > full house (pair and three of a kind) > flush > straight > three of
+	 * a kind > two pair > one pair.
+	 * 
+	 * 2 points of EXTRA CREDIT: Use the high card of the category as a tiebreaker
+	 * if both are in the same category. Ace is the highest but otherwise numerical
+	 * designation of rank designates "height".
+	 * 
+	 * It is possible for neither hand to be a winner if they both have the same
+	 * thing, e.g. both hands have a pair of twos.
+	 * 
+	 * @param myHand
+	 * @param otherHand
+	 * @return True if myHand is a winner, false if it is not.
+	 */
+	public static boolean isWinner(int[] myHand, int[] otherHand) {
+		return false; // Instead of returning false, calculate according to the above description!
+	}
+
+}

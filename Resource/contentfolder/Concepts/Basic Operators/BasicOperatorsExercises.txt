@@ -1,0 +1,5 @@
+Copy and paste this link into your web browser
+
+https://docs.oracle.com/javase/tutorial/java/nutsandbolts/QandE/questions_operators.html
+
+Credit to Oracle Java

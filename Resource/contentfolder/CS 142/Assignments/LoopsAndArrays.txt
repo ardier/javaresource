@@ -1,0 +1,11 @@
+// Your name here!
+public class LoopsAndArrays {
+	// Your code should work for any array of ints of any length.
+	// The tester will modify a with different arrays.
+	public static int[] a = {13, 2, 20, -32, 3};
+	
+	public static void main(String[] args) {
+		// Fill this in according to the assignment description. You will produce 4 lines of output.
+	}
+
+}

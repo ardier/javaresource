@@ -1,0 +1,104 @@
+import java.util.Scanner;
+
+public class FarmerProblem {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		// Pre-move positions
+		boolean isFarmerOnLeftSide = true;
+		boolean isGoatOnLeftSide = true;
+		boolean isWolfOnLeftSide = true;
+		boolean isCabbageOnLeftSide = true;
+		
+		// Post-move positions
+		boolean isFarmerOnLeftSideAfterMove = false;
+		boolean isGoatOnLeftSideAfterMove = false;
+		boolean isWolfOnLeftSideAfterMove = false;
+		boolean isCabbageOnLeftSideAfterMove = false;
+		// Loop as long as at least one thing is on the left side
+		while (isFarmerOnLeftSide || isGoatOnLeftSide || isWolfOnLeftSide || isCabbageOnLeftSide) {
+			System.out.println("Farmer on left side: "+isFarmerOnLeftSide);
+			System.out.println("Goat on left side: "+isGoatOnLeftSide);
+			System.out.println("Wolf on left side: "+isWolfOnLeftSide);
+			System.out.println("Cabbage on left side: "+isCabbageOnLeftSide);
+			
+			System.out.print("Enter next farmer position: ");
+			isFarmerOnLeftSideAfterMove = s.nextBoolean();
+			System.out.print("Enter next goat position: ");
+			isGoatOnLeftSideAfterMove = s.nextBoolean();
+			System.out.print("Enter next wolf position: ");
+			isWolfOnLeftSideAfterMove = s.nextBoolean();
+			System.out.print("Enter next cabbage position: ");
+			isCabbageOnLeftSideAfterMove = s.nextBoolean();
+			
+			
+			boolean badMove = false; // So far, we don't know that the move is bad
+			int thingsMoving = 0; // So far, we don't know how many things have moved.
+			// The farmer must move
+			if (isFarmerOnLeftSide == isFarmerOnLeftSideAfterMove) {
+				System.out.println("The farmer must move!");
+				badMove = true;
+			}
+			
+			// Only zero or one items can be moved at a time
+			// Did the goat move?
+			if (isGoatOnLeftSide != isGoatOnLeftSideAfterMove) {
+				// Is the farmer with the goat?
+				if (isFarmerOnLeftSide != isGoatOnLeftSide) {
+					badMove = true;
+					System.out.println("You can't move the goat unless it's "
+							+ "with the farmer!");
+				}
+				thingsMoving = thingsMoving + 1; // Count the goat
+			}
+			// Did the wolf move?
+			if (isWolfOnLeftSide != isWolfOnLeftSideAfterMove) {
+				// Is the farmer with the wolf?
+				if (isFarmerOnLeftSide != isWolfOnLeftSide) {
+					badMove = true;
+					System.out.println("You can't move the wolf unless it's with the farmer!");
+				}
+				thingsMoving = thingsMoving + 1; // Count the wolf
+			}
+			// Did the cabbage move?
+			if (isCabbageOnLeftSide != isCabbageOnLeftSideAfterMove) {
+				// Is the farmer with the cabbage?
+				if (isFarmerOnLeftSide != isCabbageOnLeftSide) {
+					badMove = true;
+					System.out.println("You can't move the cabbage unless it's with the farmer!");
+				}
+				thingsMoving = thingsMoving + 1; // Count the cabbage
+			}
+			
+			if (thingsMoving > 1) {
+				System.out.println("You may only move one thing at a time!");
+				badMove = true;
+			}
+			
+			// Would this move cause the goat to eat the cabbage?
+			if (isGoatOnLeftSideAfterMove == isCabbageOnLeftSideAfterMove &&
+					isFarmerOnLeftSideAfterMove != isGoatOnLeftSideAfterMove) {
+				System.out.println("The goat would eat the cabbage!");
+				badMove = true;
+			}
+			// Would this move cause the wolf to eat the goat?
+			if (isGoatOnLeftSideAfterMove == isWolfOnLeftSideAfterMove &&
+					isFarmerOnLeftSideAfterMove != isGoatOnLeftSideAfterMove) {
+				System.out.println("The wolf would eat the goat!");
+				badMove = true;
+			}
+			
+			if (!badMove) {
+				System.out.println("Good move!");
+				// Modify the current variables to reflect next values
+				isFarmerOnLeftSide = isFarmerOnLeftSideAfterMove;
+				// Also move the other three items
+				isGoatOnLeftSide = isGoatOnLeftSideAfterMove;
+				isWolfOnLeftSide = isWolfOnLeftSideAfterMove;
+				isCabbageOnLeftSide = isCabbageOnLeftSideAfterMove;
+			}
+		}
+		System.out.print("You won!!!");
+	}
+
+}

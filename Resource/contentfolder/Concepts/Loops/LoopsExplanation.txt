@@ -1,0 +1,5 @@
+Copy and paste this link into your web browser
+
+http://codingbat.com/doc/java-for-while-loops.html
+
+Credit to Coding bat

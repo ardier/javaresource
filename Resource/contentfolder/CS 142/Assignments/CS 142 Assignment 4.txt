@@ -1,0 +1,117 @@
+CS142 Assignment 4
+Poker Face
+DUE on Monday, November 6 at 11:59 PM
+
+Your job is to write implementations for several Java methods to support a game of poker.
+(You may read online for more information about the game, for example, at Wikipedia.) There are several variants of poker,
+but the cards in the game and poker hands (flush, straight, etc.) are standard across games. 
+Each card value in a hand is stored as an integer value in an array. For a card of a given suit (spade, club, heart, or diamond) and rank
+(2 through 10, Jack, Queen, King, Ace), you can look up its integer value in the table below.
+
+S\R-      A 2  3  4  5  6  7  8  9 10  J  Q  K
+Spade-    1 5  9 13 17 21 25 29 33 37 41 45 49
+Club-     2 6 10 14 18 22 26 30 34 38 42 46 50
+Hearts-   3 7 11 15 19 23 27 31 35 39 43 47 51
+Diamonds- 4 8 12 16 20 24 28 32 36 40 44 48 52
+
+Notice that there is a pattern to how the values are assigned. The use of division and remainder operators / and % can help you figure out
+information about the location of a given card value in this table! Most people keep their hands sorted by rank, and suit acts as a kind of tiebreaker.
+For this assignment, you can assume that every array is sorted in integer value order. Because there is only one of each card in the deck,
+that means you can assume for each index i, hand[i] < hand[i+1].
+
+Please implement the following methods. “Card value” is the integer value for a specific card as seen in the table above.
+“Rank value” is the column of the table (Ace is in column 1, 2-10 is in column 2-10, Jack in 11, Queen in 12, King in 13) and “Suit value” is the
+row of the table (Spades is in row 1, Clubs is in row 2, Hearts in row 3, Diamonds in row 4).
+
+/**  
+* 8 points: Is the given card of the given suit?
+*   
+* @param card Card value (see assignment description)  
+* @param suit Suit value (Spade=1, Club=2, Heart=3, Diamond=4)  
+* @return true if card is of the given suit, false otherwise (including if suit  
+*         or card is not in the specified range)  
+*/ 
+public static boolean isRank(int card, int rank)
+
+/**  
+* 10 points: Is the given hand a flush? All cards must be the same suit. This  
+* method should work for a hand of any size but you may assume all card values  
+* are valid and there are no duplicates. HINT: Use isSuit() on each card.  
+*   
+* @param hand Array of card values representing the hand  
+* @return True if all cards in the hand are the same suit, false otherwise  
+*/
+public static boolean isFlush(int[] hand) 
+
+/** 
+* 14 points: Is the given hand a straight? All cards must be in ascending rank. 
+* Ace may count as either a high or low card, but not both. (A-2-3-4-5 or  
+* 10-J-Q-K-A are five card straights, but not K-A-2-3-4.) The cards will be  
+* sorted by value, meaning that cards of a given rank will be grouped together,  
+* but Aces will be grouped at the beginning. This method should work for a hand  
+* of any size but you may assume all card values are valid and there are no  
+* duplicates.  * HINT: Use isRank() on each card in turn. Consider how the rank changes from  
+* one card to the next.  
+*   
+* @param hand Array of card values representing the hand  
+* @return True if all cards in the hand are in ascending rank, false otherwise  
+*/
+public static boolean isStraight(int[] hand)
+
+/**  
+* 10 points: Count how many cards of a given rank appear in the hand.  
+*   
+* @param hand Array of card values representing the hand  
+* @param rank Rank value  
+* @return Count of cards in the hand with the given rank (0 if no cards)  
+*/
+public static int countCardsOfRank(int[] hand, int rank)
+
+/**  
+* 10 points: Does the hand contain a run of cards of the same rank for the  
+* given length? For example, the hand [A 2 2 2 10 K] contains a run of three  
+* 2s. It also contains a run of two 2s. HINT: Use countCardsOfRank() and try  
+* all possible ranks.  
+*   
+* @param hand Array of card values representing the hand  
+* @param length Length of run to check for  
+* @return True if the hand contains at least "length" cards of any one rank  
+*/
+public boolean containsRun(int[] hand, int length) 
+
+/**  
+* 20 points: Replace selected cards in your hand by drawing from the deck. For  
+* each location in "hand," if the same location in "selected" is true, replace  
+* the array location's value with a value (card) starting from the "top" index  
+* in the "deck" array. You may assume that the selected array is the same  
+* length as the hand array and there are enough cards in the deck to replace  
+* your hand. As an example, the hand [1, 2, 3] with selected [true, false,  
+* true], deck [5, 6, 7, 8] and topOfDeck 1 would cause the hand to become [6,  
+* 2, 7] and 2 would be returned because two cards were replaced.  
+*   
+* @param hand Array of card values representing the hand  
+* @param replace Boolean array indicating which cards to replace  
+* @param deck Deck of cards used to replace hand cards  
+* @param top Location of the top of the deck within the array (allows multiple  
+*            people to use the deck)  
+* @return Number of cards replaced  
+*/
+public static int drawCards(int[] hand, boolean[] selected, int[] deck, int top)  
+
+/**  
+* 20 points: Return true if myHand is a winner over otherHand according to the  
+* rules of poker. For full credit, you only need to correctly pick a winner if  
+* each hand is in a separate one of these categories: Straight flush > four of  
+* a kind > full house (pair and three of a kind) > flush > straight > three of  
+* a kind > two pair > one pair. 2 points of EXTRA CREDIT: Use high card as a  
+* tiebreaker if both are in the same category.  
+*   
+* It is possible for neither hand to be a winner if they both have the same  
+* thing, e.g. both hands have a pair of twos.  
+*   
+* @param myHand Array of card values representing my hand  
+* @param otherHand Array of card values representing the other hand  
+* @return True if myHand is a winner over otherHand, false if it is not.  
+*/
+public static boolean isWinner(int[] myHand, int[] otherHand) 
+

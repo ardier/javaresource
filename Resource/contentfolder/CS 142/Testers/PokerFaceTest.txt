@@ -1,0 +1,168 @@
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
+
+/**
+ * Test of CS 142 Assignment 4 by Martin Hock (Version 3 of 2:30 AM 11/7/2017)
+ * 
+ * You may only use this code as a student of Martin Hock, CS 142 Fall 2017.
+ */
+public class PokerFaceTest {
+
+	public static void main(String[] args) {
+		// The following code should not be used (copied and pasted or adapted in any
+		// way) to solve your assignment. It is designed to be difficult to understand
+		// and use (for pedagogical reasons, as a test program).
+		// Instead, you should just pay attention to the error messages to fix YOUR
+		// solution and make it work. Any direct use of the test code in your solution
+		// would be a violation of the CS 142 academic dishonesty policy.
+
+		System.out.println(
+				"If you don't see TOTAL SCORE at the end, your program is in an infinite loop or crashing! Use the debugger.");
+
+		int rankPoints = 0, suitPoints = 0;
+		int badSuit = 0, badRank = 0;
+		long[][] a = {
+				{ 0, 0, -8608481154137325568L, 4919131459786113024L, 2459565729893056512L, 1229782864946528256L, 0, 0 },
+				{ 0, 0, 150120014422562L, 75059940102416L, 37529970051208L, 18765052134469L, 0, 0 } };
+		for (int x = 0, i = -10; i <= -2; i++) {
+			for (int j = -4; j <= 8; j++, x++) {
+				for (int k = -1; k <= 6; k++) {
+					boolean issuit = PokerFace.isSuit(i * i - j, k);
+					if ((issuit ? 1L : 0L) << (x & 63) != (a[x <= 63 ? 0 : 1][k + 1] & (1L << (x & 63)))) {
+						if (badSuit < 10)
+							System.out.println("isSuit method gave unexpected result for (" + (i * i - j) + ", " + k
+									+ ") (expected " + !issuit + " got " + issuit + ")");
+						badSuit++;
+						if (badSuit == 10)
+							System.out.println("Further isSuit errors will not be printed.");
+					}
+				}
+			}
+		}
+		long[][] b = {
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, -1152921504606846976L, 1080863910568919040L, 67553994410557440L,
+						4222124650659840L, 263882790666240L, 16492674416640L, 0, 0 },
+				{ 0, 0, 264913582817280L, 16557166034944L, 4089446400L, 138149888, 261120, 960, 61, 2, 0, 0, 0, 0, 0, 0,
+						0 } };
+		for (int x = 0, i = -10; i <= -2; i++) {
+			for (int j = -4; j <= 8; j++, x++) {
+				for (int k = -1; k <= 15; k++) {
+					boolean isrank = PokerFace.isRank(i * i - j, k);
+					if ((isrank ? 1L : 0L) << (x & 63) != (b[x <= 63 ? 0 : 1][k + 1] & (1L << (x & 63)))) {
+						if (badRank < 10)
+							System.out.println("isRank method gave unexpected result for (" + (i * i - j) + ", " + k
+									+ ") (expected " + !isrank + " got " + isrank + ")");
+						badRank++;
+						if (badRank == 10)
+							System.out.println("Further isRank errors will not be printed.");
+					}
+				}
+			}
+		}
+		rankPoints = Math.max(0, 20 - badRank);
+		suitPoints = Math.max(0, 20 - badSuit);
+		int[][] hands = { { 1, 5, 9, 13, 17 }, { 7, 15, 23, 27 }, { 3, 38, 43, 45, 52 }, { 6 }, { 5, 14 }, { 1, 5 },
+				{ 25, 26, 27, 28 }, { 1, 6, 11, 16, 19, 22, 25, 30 }, { 1, 5, 9, 13, 21 }, { 4, 5, 9, 13, 21 } };
+		int[][] countHands = { { 1, 2, 3, 4 }, { 5, 7, 8, 9 }, { 13, 15, 16, 17, 37, 38 } };
+		int[][] countCounts = { { 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 3, 1, 0, 0, 0, 0, 2, 0, 0, 0 } };
+		boolean[][] fs = { { true, true, false, true, false, true, false, false, true, false },
+				{ true, false, true, true, false, true, false, true, false, false } };
+		int straightPoints = 0;
+		int flushPoints = 0;
+		int countPoints = 0;
+		int drawPoints = 0;
+		for (int i = 0; i < hands.length; i++) {
+			if (PokerFace.isFlush(hands[i]) == fs[0][i])
+				flushPoints++;
+			else
+				System.out.println("For the hand " + Arrays.toString(hands[i]) + ", isFlush returned " + !fs[0][i]
+						+ " but should have returned " + fs[0][i]);
+			if (PokerFace.isStraight(hands[i]) == fs[1][i])
+				straightPoints++;
+			else
+				System.out.println("For the hand " + Arrays.toString(hands[i]) + ", isStraight returned " + !fs[1][i]
+						+ " but should have returned " + fs[1][i]);
+		}
+		for (int i = 0; i < countHands.length; i++) {
+			int[] cc = countCounts[i];
+			int max = 0;
+			for (int j = 0; j < cc.length; j++) {
+				int c = PokerFace.countCardsOfRank(countHands[i], j + 1);
+				if (c != cc[j]) {
+					System.out.println("countCardsOfRank for " + Arrays.toString(countHands[i]) + ", " + (j + 1)
+							+ " should be " + cc[j] + " but was " + c);
+				} else
+					countPoints++;
+				max = Math.max(max, cc[j]);
+			}
+
+		}
+		System.out.println("Point totals will be revised with the next version of the tester!");
+		System.out.println("isSuit " + suitPoints + " / 20");
+		System.out.println("isRank " + rankPoints + " / 20");
+		System.out.println("isFlush " + flushPoints + " / 10");
+		System.out.println("isStraight " + (3 * straightPoints / 2) + " / 15");
+		System.out.println("countCardsOfRank " + countPoints / 3 + " / 13");
+		System.out.println("containsRun is now extra credit and is not tested by this tester.");
+		try {
+			Method cr = PokerFace.class.getMethod("containsRun", int[].class, int.class);
+			if (cr != null) {
+				if (!Modifier.isStatic(cr.getModifiers())) {
+					System.out.println(
+							"If you would like to get credit for containsRun, please add the word \"static\" to the containsRun method declaration, so it says: public static boolean containsRun(int[] hand, int length)");
+				} else {
+					System.out.println("You have declared containsRun correctly, but this tester doesn't test it.");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(
+					"I don't see your containsRun method. It should be declared as: public static boolean containsRun(int[] hand, int length)");
+		}
+		{
+
+			int[][] dhands = { { 1, 2, 3, 4, 5 }, { 5 }, { 13, 14, 15, 16 } };
+			int[][] dafter = { { 2, 4, 6, 7, 8 }, { 5 }, { 9, 10, 11, 12 } };
+			int[] deck = { 6, 7, 8, 9, 10, 11, 12 };
+			boolean[][] dselected = { { true, false, true, false, true }, { false }, { true, true, true, true } };
+			int[] dcounts = { 3, 0, 4 };
+			int[] dtops = { 0, 100, 3 };
+			for (int i = 0; i < dhands.length; i++) {
+				int[] hand = dhands[i];
+				int[] after = dafter[i];
+				boolean[] selected = dselected[i];
+				int[] deckopy = deck.clone();
+				int top = dtops[i];
+				System.out.println("Testing drawCards(" + Arrays.toString(hand) + ", " + Arrays.toString(selected)
+						+ ", " + Arrays.toString(deck) + ", " + top + ")...");
+				int drew = PokerFace.drawCards(hand, selected, deck, top);
+				Arrays.sort(hand);
+				if (!Arrays.equals(hand, after)) {
+					System.out.println("After drawCards, the hand contained these cards: " + Arrays.toString(hand));
+					System.out.println("I expected the hand to contain these cards: " + Arrays.toString(after));
+				} else
+					drawPoints += 5;
+				if (drew != dcounts[i]) {
+					System.out.println("I expected the value " + dcounts[i] + " to be returned. Instead, " + drew
+							+ " was returned.");
+				} else
+					drawPoints += 2;
+				if (!Arrays.equals(deckopy, deck)) {
+					System.out.println(
+							"The deck shouldn't change! Only the hand changes. The return value indicates how many cards were drawn.");
+					if (drawPoints > 0)
+						drawPoints--;
+				}
+			}
+			if (drawPoints > 11)
+				drawPoints++; // bonus!
+		}
+		System.out.println("drawCards " + drawPoints + " / 22");
+		System.out.println("isWinner is now extra credit and is not tested by this tester.");
+		System.out.println("TOTAL SCORE: "
+				+ (suitPoints + rankPoints + flushPoints + 3 * straightPoints / 2 + countPoints / 3 + drawPoints)
+				+ " / 100");
+	}
+
+}

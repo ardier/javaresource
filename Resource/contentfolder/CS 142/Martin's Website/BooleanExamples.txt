@@ -1,0 +1,37 @@
+
+public class BooleanExamples {
+
+	public static void main(String[] args) {
+		boolean dogFed = true;
+		boolean dogWalked = true;
+		boolean dogPlayedWith = true;
+
+
+		boolean dogExtraHappy = dogFed && (dogWalked && dogPlayedWith);
+		if (dogFed && (dogWalked || dogPlayedWith)) {
+			System.out.println("The dog is happy");
+			System.out.println(":)");
+		} 
+		double x = 5;
+		double y = -1;
+		// is x between 0 and 10
+		// x <= 10 && x >= 0
+		// DOESN'T WORK: x <= 10 && >= 0
+		boolean isXInSquare = x >= 0 && x <= 10;
+		boolean isYInSquare = y >= 0 && y <= 10;
+		boolean isPointInSquare = isXInSquare && isYInSquare;
+		System.out.println("("+x+", "+y+"): "+isPointInSquare);
+
+		double moneyInPocket = 0.74;
+		double costOfCandyBar = 0.75;
+		
+		if (costOfCandyBar <= moneyInPocket) {
+			System.out.println("We bought it!");
+		} else {
+			System.out.println("Sadly, no candy bar :(");
+		}
+		System.out.println("Leave the store!");
+		
+	}
+
+}

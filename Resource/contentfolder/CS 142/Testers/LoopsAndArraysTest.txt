@@ -1,0 +1,136 @@
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Scanner;
+
+/**
+ * Test of CS 142 Assignment 3 by Martin Hock (Version of 2:10 PM 10/23/2017)
+ * 
+ * You may only use this code as a student of Martin Hock, CS 142 Fall 2017.
+ */
+public class LoopsAndArraysTest {
+
+	public static String reverse(String s) {
+		// A simple method just to check the opposite order of the last part.
+		if (!s.contains(" "))
+			return s;
+		String[] s2 = s.split(" ");
+		return s2[2] + " " + s2[1] + " " + s2[0];
+	}
+
+	public static int replaceneg(int n, int replace) {
+		if (n <= 0)
+			return replace;
+		return n;
+	}
+
+	public static void main(String[] args) {
+		int[][] testValues = {
+				{ 13, 2, 20, -32, 3 }, { 1 }, { 27, 21, 22, 63, 46, 88, 22, 84, 56, 55 }, { -88, -48, 74, 33, -86, 88,
+						-31, -85, 39, 0, 79, 7, -24, -38, 95, 44, -71, 24, -16, -90, -14, -93, 9, 6 },
+				{ -2, 59, 23, -76, -45, -81, -74, 70, -16, -95, 67, 77, 8, -88, -35, 47, -17, 0, 19 },
+				{ -39, 9, -64, -47, 11, 57, -95, -97, -41, 8, -75, -16, 32, -37, 47, 41, 33, 87, -23, -50, 48, -72, -28,
+						31, 60, -54, -54 },
+				{ 68, -20, 93, 14, 58, 89, -90, 62, 10, 24, -67, 63, -77, -83, 81, -24, -80, 19 },
+				{ -16, -41, -83, 76, 92, -95, 15, 5, -92, -67, -86, -27, -20, -60, -81, 2, 3 },
+				{ -48, -18, 12, -6, -61, -69, 46, -34, -39, 23, -80, 51, 91, -11, -2, 72, -87, 73, 99 },
+				{ 28, -95, -3, -18, 65, 6, 43, 58, 65, -72, -37, 65, -56, 18, 41 } };
+		String[][] answers = { { "2", "3", "yes", "2 and 3" }, { "1", "0", "yes", "no" },
+				{ "21", "0", "no", "22 and 22" }, { "6", "2", "no", "-31 and 6" }, { "8", "5", "no", "no" },
+				{ "8", "4", "no", "-41 and 8" }, { "10", "2", "yes", "14 and 10" }, { "2", "3", "yes", "-95 and 5" },
+				{ "12", "2", "no", "-6 and -2" }, { "6", "2", "yes", "6 and 18" } };
+		String[] prompts = { "Smallest positive value:", "Prime count:", "Contains a square plus one:",
+				"Two elements with product equal to array sum:" };
+		boolean[] didMissPrompt = { false, false, false, false };
+		boolean missingLines = false;
+		int[] scores = { 0, 0, 0, 0 };
+		try {
+			String source = null;
+			try {
+				source = new String(Files.readAllBytes(Paths.get("src" + File.separator + "LoopsAndArrays.java")));
+				source = source.replaceAll("//.*", "");
+				source = source.replaceAll("(?s)/\\*.*?\\*/", "");
+			} catch (Exception e) {
+				System.out.println(
+						"Couldn't find LoopsAndArrays.java! Run this from the same Eclipse project as LoopsAndArrays and make sure everything is in the default package.");
+				return;
+			}
+
+			if (source.matches("(?s).*import\\s.*") || source.indexOf("import") == 0) {
+				System.out.println("Detected 'import' statement in your program! Please remove any word 'import'.");
+				System.out.println(
+						"Your program will not be graded! Please contact your instructor if you don't understand this error!");
+				return;
+			}
+
+			for (int dotIndex = source.indexOf('.'); dotIndex != -1; dotIndex = source.indexOf('.', dotIndex + 1)) {
+				if ("System.out.print".equals(source.substring(dotIndex - 6, dotIndex + 10))
+						|| "System.out.print".equals(source.substring(dotIndex - 10, dotIndex + 6))
+						|| "length".equals(source.substring(dotIndex + 1, dotIndex + 7))) {
+					continue;
+				}
+				String dotLine = source.substring(source.lastIndexOf('\n', dotIndex) + 1,
+						replaceneg(source.indexOf(';', dotIndex) + 1, source.length())).trim();
+				System.out.println("I see a dot in your program which may indicate a method call! Context: " + dotLine);
+				System.out.println(
+						"Your program will not receive extra credit! Please contact your instructor if you don't understand this error!");
+				break;
+			}
+			for (int t = 0; t < testValues.length; t++) {
+				int[] a = testValues[t];
+				String[] answer = answers[t];
+				PrintStream oldOut = System.out;
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				System.out.println("Testing on this array: " + Arrays.toString(a));
+				System.setOut(new PrintStream(stream));
+				try {
+					LoopsAndArrays.a = a;
+					LoopsAndArrays.main(new String[] {});
+				} finally {
+					System.setOut(oldOut);
+				}
+				Scanner scanner = new Scanner(new String(stream.toByteArray()));
+				for (int i = 0; i < 4; i++) {
+					String line = null;
+					if (scanner.hasNextLine()) {
+						line = scanner.nextLine().trim();
+					} else {
+						if (!missingLines)
+							System.out.println(
+									"Your program is missing some lines of output! You are supposed to have 4 but I saw "
+											+ i);
+						missingLines = true;
+						break;
+					}
+					if (!line.startsWith(prompts[i])) {
+						System.out.println("For part " + (i + 1)
+								+ ", your program didn't start the line correctly so I can't check the answer!");
+						if (!didMissPrompt[i]) {
+							System.out.println("It should begin: \"" + prompts[i] + "\"");
+							System.out.println("Instead it looked like this: \"" + line + "\"");
+							didMissPrompt[i] = true;
+						}
+						continue;
+					}
+					if (!line.endsWith(answer[i]) && !line.endsWith(reverse(answer[i]))) {
+						System.out.println("For part " + (i + 1 + ", your program didn't get the right answer!"));
+						System.out.println("Your program gave: " + line.substring(prompts[i].length()).trim());
+						System.out.println("I expected: " + answer[i]);
+					} else {
+						scores[i] += (i % 2 == 0 ? 2 : 3);
+					}
+				}
+			}
+		} finally {
+			int sum = 0;
+			for (int i = 0; i < scores.length; i++) {
+				System.out.println("Part " + (i + 1) + " score: " + scores[i] + "/" + (i % 2 == 0 ? 20 : 30));
+				sum += scores[i];
+			}
+			System.out.println("Total score: " + sum + "/100");
+		}
+	}
+}

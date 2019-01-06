@@ -1,0 +1,5 @@
+Copy and paste this link into your web browser
+
+https://docs.oracle.com/javase/tutorial/java/javaOO/QandE/creating-questions.html
+
+Credit to Oracle java

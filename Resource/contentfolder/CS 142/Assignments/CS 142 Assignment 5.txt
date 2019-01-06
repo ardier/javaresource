@@ -1,0 +1,41 @@
+CS142 Assignment 5
+Fun with Rectangles and Scanner
+DUE on Thursday, November 17 at 11:59 PM 
+
+In this assignment, you’ll be working with java.awt.Rectangle and java.util.Scanner objects.
+Create a class called RectangleFun with a main method. The main method should start by constructing a Scanner object for System.in.
+Construct the Scanner before the loop – do not construct multiple Scanner objects. The user should be prompted to enter a number indicating
+how many rectangles they want to enter. Keep prompting the user until they enter a positive integer number – do not assume the user entered an integer.
+Say that number is n. You should create an array of n Rectangles. Then, ask the user to input coordinates for each rectangle.
+The user should be told which rectangle they are entering (numbered 1 through n, where n is the number entered earlier) and prompted
+to enter four integers on one line separated by spaces representing the upper left x, y and lower right x, y coordinates. Note that you will
+have to convert the coordinates into parameters appropriate to construct a Rectangle. 
+
+For each line entered, verify that the upper left coordinate is actually above and to the left of the lower right coordinate.
+In Java’s coordinate space, this implies that the upper left’s x must be less than the lower right’s x and the upper left’s y must be less than the
+lower right’s y coordinate. The user should be prompted to enter the rectangle again if the coordinates are not correct by the rules above.
+For this part, you may assume that the user entered four integer coordinates in a row without any invalid characters. 
+
+Once all n rectangles are entered, you should print the following pieces of information:
+1. The bounds of the smallest rectangle that would contain all the rectangles entered in terms of its upper left and lower right coordinates.
+HINT: Look at the union method of the Rectangle class. Print out the bounds in terms of its coordinates as in the example.
+2. How many pairs of rectangles intersect. HINT: use a nested loop. Don’t double count. For example, if rectangle A intersects rectangle B, don’t
+count the fact that B also intersects A! And don’t count the fact that a rectangle intersects itself. 3. EXTRA CREDIT 10 PTS:
+The total area that all the rectangles cover but not counting overlapped areas more than once. For example,
+rectangles (0,0)-(2,2), (1, 1)-(3, 3) and (2,2)(4,4) would have a total area of 10 even though a naive count would be 12.
+You must follow the format of this example session (bold text was entered by the user): 
+
+How many rectangles would you like to enter?
+3
+Please enter rectangle 1:
+2 2 0 0
+Sorry, that rectangle was entered incorrectly. Please enter rectangle 1:
+0 0 2 2
+Please enter rectangle 2:
+1 1 3 3
+Please enter rectangle 3:
+2 2 4 4
+The bounds of the smallest rectangle containing the above rectangles:(0,0)-(4,4)
+How many pairs of rectangles intersect: 2 
+Total area covered by all rectangles:10 
+ 

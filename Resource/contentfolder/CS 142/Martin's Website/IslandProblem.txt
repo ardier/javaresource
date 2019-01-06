@@ -1,0 +1,38 @@
+
+public class IslandProblem {
+	public static void main(String[] args) {
+	
+		// Island coordinates
+		int xJump= 105-5; // Manual input
+		int yJump= 190+10+4; // Manual input
+		
+		int xLanding= xJump+5;
+	    int yLanding=yJump-10;
+	    int xDistanceFromCenter = 100 - xLanding;
+	    int yDistanceFromCenter = 200 - yLanding;
+	    double distanceFromCenter = Math.sqrt(
+	    		xDistanceFromCenter*xDistanceFromCenter + 
+	    		yDistanceFromCenter*yDistanceFromCenter);
+
+	    if (distanceFromCenter <= 25) {
+	    	System.out.println("You landed on the island");
+	    
+	    	
+		    if ((xLanding >= 100 && xLanding <= 110) && (yLanding >= 180 && yLanding <= 195)) {
+		    	yLanding = yLanding - 4;
+		    	System.out.println("Ooopsy! you landed on ice!");
+		    } 
+		    if (xLanding == 105 && yLanding == 190) {
+		    	    System.out.println("But hey... You did it, you ended up getting the Treassure!");
+		    }
+		    
+	    } else {
+	    	System.out.println("You landed in the water!!!");
+	    }
+	
+	System.out.println(xLanding);
+	System.out.println(yLanding);
+
+	}
+
+}

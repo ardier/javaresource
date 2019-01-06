@@ -1,0 +1,21 @@
+
+public class FindDuplicates {
+	public static int[] a = {1, 46, 3, 17, -3, 8, 12, 24, 17, 6, 17};
+	public static void main(String[] args) {
+		// Write a double nested loop that uses the 
+		// left hand-right hand technique
+		// to find duplicates in a
+		for (int i = 0; i < a.length; i++) { 
+			// The left hand is going to look at every index in the array.
+			for (int j = i+1; j < a.length; j++) {
+				// The right hand will look at indexes after the left.
+				// Compare your left to your right!
+				if (a[i] == a[j]) {
+					System.out.println("Found "+a[i]);
+				}
+			}
+		}
+
+	}
+
+}

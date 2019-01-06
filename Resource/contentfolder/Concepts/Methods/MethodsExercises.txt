@@ -1,0 +1,5 @@
+Copy and paste link into your web browser
+
+https://www.w3resource.com/java-exercises/method/index.php
+
+Credit to w3resource
